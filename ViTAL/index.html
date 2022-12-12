@@ -181,7 +181,15 @@
 			</div>
             
             <!--  Form HL -->
-			
+			<div class="grid-item">
+				<div class="form-item">
+					<form id="buttonFormHLights" method="post">
+						<button class="buttonSubmit" type="submit" id="buttonSubmitHLights" name="button" value="Head Lights On">Head Lights On</button>
+					</form>
+				</div>
+			</div>
+
+			<!--  Form AL -->
 			<div class="grid-item">
 				<div class="form-item">
 					<form id="buttonFormALights" method="post">
@@ -288,8 +296,15 @@
 		}
         
         /********** HEAD LIGHTS **********/
-        
-        
+        document.getElementById('buttonFormHLights').addEventListener('submit', buttonEventHLights);
+        if (localStorage.getItem("valueHLights") == null) localStorage.setItem("valueHLights", "Head Lights On");
+        document.getElementById('buttonSubmitHLights').innerHTML = localStorage.getItem("valueHLights");
+        document.getElementById('buttonSubmitHLights').value = localStorage.getItem("valueHLights");
+		function buttonEventHLights() {
+			if (localStorage.getItem("valueHLights") === "Head Lights On") localStorage.setItem("valueHLights", "Head Lights Off");
+            else localStorage.setItem("valueHLights", "Head Lights On");
+		}
+
         /********** AMBIENTAL LIGHTS **********/
         document.getElementById('buttonFormALights').addEventListener('submit', buttonEventALights);
 		if (localStorage.getItem("valueALights") == null) localStorage.setItem("valueALights", "Ambiental Lights On");
