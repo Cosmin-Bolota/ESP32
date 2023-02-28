@@ -8,3 +8,6 @@
  * created by patent grant or registration of a utility model or design,
  * are reserved.
  *******************************************************************************/
+#include "BSW/MCAL/PWM/pwm.h"
+
+void BUZZER_vChangeDutyCycle(uint32_t BuzzerDutyCycle);

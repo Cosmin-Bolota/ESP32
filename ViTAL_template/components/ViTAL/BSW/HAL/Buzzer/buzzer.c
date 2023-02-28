@@ -8,3 +8,9 @@
  * created by patent grant or registration of a utility model or design,
  * are reserved.
  *******************************************************************************/
+#include "BSW/HAL/Buzzer/buzzer.h"
+
+void BUZZER_vChangeDutyCycle(uint32_t BuzzerDutyCycle)
+{
+    PWM_vSetDutyCycle(BUZZER_PWM_CHANNEL, BuzzerDutyCycle);
+}

@@ -19,6 +19,8 @@
 #include "RTE/rte.h"
 #include "BSW/MCAL/PWM/pwm.h"
 #include "BSW\HAL\DC_Motor\dc_motor.h"
+#include "BSW/HAL/Buzzer/buzzer.h"
+#include "BSW/HAL/Servo_Motor/servo_motor.h"
 
 /* #include "BSW/HAL/Com/com.h" */
 
@@ -66,14 +68,28 @@ void vTask100ms(void)
 	//vTaskDelay(800);
 
 	
-	DCMOT_vChangeSpeed(DC_MOTOR_LOW_SPEED);
-	vTaskDelay(1000);
-	DCMOT_vChangeSpeed(DC_MOTOR_STOP);
-	vTaskDelay(1000);
-	DCMOT_vChangeSpeed(DC_MOTOR_MEDIUM_SPEED);
-	vTaskDelay(1000);
-	DCMOT_vChangeSpeed(DC_MOTOR_FULL_SPEED);
-	vTaskDelay(1000);
+	// DCMOT_vChangeSpeed(DC_MOTOR_LOW_SPEED);
+	// vTaskDelay(100);
+	// DCMOT_vChangeSpeed(DC_MOTOR_STOP);
+	// vTaskDelay(1000);
+	// DCMOT_vChangeSpeed(DC_MOTOR_MEDIUM_SPEED);
+	// vTaskDelay(1000);
+	// DCMOT_vChangeSpeed(DC_MOTOR_FULL_SPEED);
+	// vTaskDelay(1000);
+	// DCMOT_vChangeSpeed(DC_MOTOR_STOP);
+	
+	//buzzer
+	// BUZZER_vChangeDutyCycle(10000);
+	// SERVO_vChangeAngle(4);
+	// vTaskDelay(500);
+	// BUZZER_vChangeDutyCycle(0);
+	// vTaskDelay(500);
+
+	//servo
+	SERVO_vChangeAngle(1);
+	vTaskDelay(300);
+	SERVO_vChangeAngle(2);
+	vTaskDelay(300);
 
 	//ASW_vTaskHeadLightsControl(14);
 }

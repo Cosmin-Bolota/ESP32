@@ -8,3 +8,6 @@
  * created by patent grant or registration of a utility model or design,
  * are reserved.
  *******************************************************************************/
+#include "BSW/MCAL/PWM/pwm.h"
+
+void SERVO_vChangeAngle(uint32_t ServoAngle);
