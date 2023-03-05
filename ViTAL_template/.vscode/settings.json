@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "pwm.h": "c"
+        "pwm.h": "c",
+        "shift_register.h": "c",
+        "temp_sensor.h": "c"
     }
 }

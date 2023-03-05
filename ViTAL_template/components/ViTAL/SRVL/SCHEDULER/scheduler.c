@@ -21,6 +21,7 @@
 #include "BSW\HAL\DC_Motor\dc_motor.h"
 #include "BSW/HAL/Buzzer/buzzer.h"
 #include "BSW/HAL/Servo_Motor/servo_motor.h"
+#include "BSW/HAL/Temp_Sensor/temp_sensor.h"
 
 /* #include "BSW/HAL/Com/com.h" */
 
@@ -53,6 +54,9 @@ void SYSTEM_vInit(void)
 	GPIO_vSetDirection(SN74HC595N_SH_CP_PIN,DIR_OUTPUT);
 	GPIO_vSetDirection(SN74HC595N_ST_CP_PIN,DIR_OUTPUT);
 	WIFI_vInit(&server);
+
+	DHT11_vRequest();
+	int x = DHT11_i8Response();
 }
 
 void vTask100ms(void)
