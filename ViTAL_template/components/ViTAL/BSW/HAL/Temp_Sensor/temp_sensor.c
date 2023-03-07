@@ -12,6 +12,7 @@
 #include "BSW/HAL/Temp_Sensor/temp_sensor.h"
 #include "BSW/MCAL/GPIO/gpio.h"
 static const char *TAG = "HAL TEMP SENSOR";
+
 /*******************************************************************************
  *  Function name    : DHT11_vRequest
  *
@@ -28,7 +29,8 @@ void DHT11_vRequest(void)
     GPIO_vSetLevel(DHT11_PIN, HIGH_LEVEL);
     GPIO_vSetLevel(DHT11_PIN, LOW_LEVEL);
     ets_delay_us(20);
-    GPIO_vSetLevel(DHT11_PIN, HIGH_LEVEL);
+    //GPIO_vSetLevel(DHT11_PIN, HIGH_LEVEL);
+    GPIO_vSetDirection(DHT11_PIN, DIR_INPUT); //when we set pin as input then pull-up resistor activates and pin goes to high level
     ESP_LOGI(TAG, "Request completed!");
 }
 
@@ -44,40 +46,103 @@ void DHT11_vRequest(void)
  *******************************************************************************/
 int8_t DHT11_i8Response(void)
 {
-    int x,y;
-    GPIO_vSetDirection(DHT11_PIN, DIR_INPUT);
-    ets_delay_us(50);
-    x = GPIO_iGetLevel(DHT11_PIN);
-    ets_delay_us(80);
-    y = GPIO_iGetLevel(DHT11_PIN);
+	int count = 0;
+	while (GPIO_iGetLevel(DHT11_PIN))
+	{
+		if (count >= DHT11_RESPONSE_START_US)
+		{
+            ESP_LOGI(TAG, "No Response(1)!");
+			return DHT11_TIMEOUT;
+		}
+		count++;
+		ets_delay_us(1);
+	}
 
-    if(x==0 && y == 1)
-    {
-        ESP_LOGI(TAG, "Response received!");
-        return 1;
-    }
-    else 
-    {
-        ESP_LOGI(TAG, "Response failed!");
-        return 0;
-    }
+	count = 0;
+	while (GPIO_iGetLevel(DHT11_PIN) == 0)
+	{
+		if (count >= DHT11_RESPONSE_LOW_US)
+		{
+            ESP_LOGI(TAG, "No Response(2)!");
+			return DHT11_TIMEOUT;
+		}
+		count++;
+		ets_delay_us(1);
+	}
+
+	count = 0;
+	while (GPIO_iGetLevel(DHT11_PIN))
+	{
+		if (count >= DHT11_RESPONSE_HIGH_US)
+		{
+            ESP_LOGI(TAG, "No Response(3)!");
+			return DHT11_TIMEOUT;
+		}
+		count++;
+		ets_delay_us(1);
+	}
+
+    ESP_LOGI(TAG, "Response received!");
+	return DHT11_OK;
 }
 
-// /*******************************************************************************
-//  *  Function name    : DHT11_i8Receive
-//  *
-//  *  Description      : Get 8 bits of data from the sensor
-//  *
-//  *  List of arguments: -
-//  *
-//  *  Return value     : int8_t -> Data received; -1 for TIMEOUT
-//  *
-//  *******************************************************************************/
-// int8_t DHT11_i8Receive(void)
-// {
+/*******************************************************************************
+ *  Function name    : DHT11_i8Receive
+ *
+ *  Description      : Get 8 bits of data from the sensor
+ *
+ *  List of arguments: -
+ *
+ *  Return value     : int8_t -> Data received; -1 for TIMEOUT
+ *
+ *******************************************************************************/
+int8_t DHT11_i8Receive(void)
+{
+    int count = 0;
+    uint8_t u8Index = 0;
+	/* Sensor measures data in the range of 0-50 degrees and 0-100(max) humidity
+	 * so it is safe to type cast uint to int or int to uint */
+	uint8_t u8Data = 0;
 
-// }
+    for (u8Index = 0; u8Index < 8; u8Index++)
+    {
+        //common 0 level
+        while (GPIO_iGetLevel(DHT11_PIN) == 0)
+        {
+            if (counter >= DHT11_BIT_START_US)
+            {
+                return DHT11_TIMEOUT;
+            }
+            count++;
+            ets_delay_us(1);
+        }
+        //receive the bit
+        count = 0;
+        while (GPIO_iGetLevel(DHT11_PIN))
+        {
+            /* Max time of bit */
+            if (u8Counter >= DHT11_BIT_1_US)
+            {
+                {
+                    return DHT11_TIMEOUT;
+                }
+            }
+            u8Counter++;
+            ets_delay_us(1);
+        }
+        // Time is greater than a 0 so it must be a one 
+        if (count > DHT11_BIT_0_US)
+        {
+            u8Data = (u8Data << 1) | (0x01);
+        }
+        else
+        {
+            u8Data = (u8Data << 1);
+        }
+	}
 
+	return (int8_t) u8Data;
+}
 // /*******************************************************************************
 //  *  Function name    : DHT11_dht11Read
 //  *

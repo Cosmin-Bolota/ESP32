@@ -15,9 +15,9 @@
 #include "BSW/MCAL/GPIO/gpio.h"
 #include "BSW/MCAL/PWM/pwm.h"
 #include "BSW/MCAL/WIFI/wifi.h"
-#include "BSW/HAL/Shift_Register/shift_register.h"
+
 #include "RTE/rte.h"
-#include "BSW/MCAL/PWM/pwm.h"
+#include "BSW/HAL/Shift_Register/shift_register.h"
 #include "BSW\HAL\DC_Motor\dc_motor.h"
 #include "BSW/HAL/Buzzer/buzzer.h"
 #include "BSW/HAL/Servo_Motor/servo_motor.h"
