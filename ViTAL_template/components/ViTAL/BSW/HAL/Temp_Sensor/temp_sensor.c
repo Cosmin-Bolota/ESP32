@@ -109,7 +109,7 @@ int8_t DHT11_i8Receive(void)
         //common 0 level
         while (GPIO_iGetLevel(DHT11_PIN) == 0)
         {
-            if (counter >= DHT11_BIT_START_US)
+            if (count >= DHT11_BIT_START_US)
             {
                 return DHT11_TIMEOUT;
             }
@@ -121,13 +121,13 @@ int8_t DHT11_i8Receive(void)
         while (GPIO_iGetLevel(DHT11_PIN))
         {
             /* Max time of bit */
-            if (u8Counter >= DHT11_BIT_1_US)
+            if (count >= DHT11_BIT_1_US)
             {
                 {
                     return DHT11_TIMEOUT;
                 }
             }
-            u8Counter++;
+            count++;
             ets_delay_us(1);
         }
         // Time is greater than a 0 so it must be a one 

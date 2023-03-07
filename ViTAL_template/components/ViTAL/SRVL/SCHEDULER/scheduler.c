@@ -56,7 +56,7 @@ void SYSTEM_vInit(void)
 	WIFI_vInit(&server);
 
 	DHT11_vRequest();
-	int x = DHT11_i8Response();
+	uint8_t x = DHT11_i8Response();
 }
 
 void vTask100ms(void)

@@ -198,3 +198,9 @@
 3490	3674	6998788797182114	esp-idf/main/libmain.a	3ae5ceec0d69d554
 3683	4867	6998788809034789	bootloader.elf	a5968ab28bd85fac
 4867	5107	6998788811545359	.bin_timestamp	7c575c7e285e81b6
+10	1435	6999025987856628	esp-idf/bootloader_support/CMakeFiles/__idf_bootloader_support.dir/src/bootloader_init.c.obj	c76fee1a09a213a0
+1438	1857	6999025992078798	esp-idf/bootloader_support/libbootloader_support.a	3341436d06fdec5
+1858	2953	6999026002875112	bootloader.elf	a5968ab28bd85fac
+2954	3318	6999026006676287	.bin_timestamp	7c575c7e285e81b6
+10	241	6999027731949407	bootloader.elf	a5968ab28bd85fac
+242	562	6999027735256934	.bin_timestamp	7c575c7e285e81b6
