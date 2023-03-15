@@ -208,3 +208,9 @@
 414	771	6999139869103291	.bin_timestamp	7c575c7e285e81b6
 15	863	7005013842591133	bootloader.elf	a5968ab28bd85fac
 864	1214	7005013846272538	.bin_timestamp	7c575c7e285e81b6
+4	445	7006086614404255	esp-idf/bootloader_support/CMakeFiles/__idf_bootloader_support.dir/src/bootloader_init.c.obj	c76fee1a09a213a0
+446	571	7006086615672062	esp-idf/bootloader_support/libbootloader_support.a	3341436d06fdec5
+571	959	7006086619472918	bootloader.elf	a5968ab28bd85fac
+959	1135	7006086621293327	.bin_timestamp	7c575c7e285e81b6
+4	98	7006117990629681	bootloader.elf	a5968ab28bd85fac
+98	215	7006117991859957	.bin_timestamp	7c575c7e285e81b6

@@ -171,7 +171,14 @@
 			</div>
             
             <!--  Form FAN -->
-			
+			<div class="grid-item">
+				<div class="form-item"> 
+					<form id="buttonFormFan" method="post">
+						<button class="buttonSubmit" type="submit" id="buttonSubmitFan" name="button" value="Fan On">Fan On</button>
+					</form>
+				</div>
+			</div>
+
 			<div class="grid-item">
 				<div class="form-item">
 					<form id="buttonFormTrunk" method="post">
@@ -247,7 +254,12 @@
 			</div>
             
             <!--  Temperature -->
-            
+            <div class="grid-item">
+				<div class="status-container">
+					<p id="temperature-level"> Temperature </p>
+				</div>
+			</div>
+
             <div class="grid-item">
 				<div class="status-container">
 					<p id="humidity-level"> Humidity </p>
@@ -272,14 +284,15 @@
 				</div>
 			</div>
             
-            <div class="grid-item">
-				<div class="status-container">
-					<p id="driver-seat-status"> Driver seat<br>unoccupied  </p>
-				</div>	
-			</div>
 			<div class="grid-item">
 				<div class="status-container">
 					<p id="distance"> Distance</p>
+				</div>	
+			</div>
+
+            <div class="grid-item">
+				<div class="status-container">
+					<p id="driver-seat-status"> Driver seat<br>unoccupied  </p>
 				</div>	
 			</div>
 		</div>
@@ -288,7 +301,14 @@
 	<script>
         /******************** POST functions ********************/
         /********** FAN **********/
-        
+        document.getElementById('buttonFormFan').addEventListener('submit', buttonEventFan);
+		if (localStorage.getItem("valueFan") == null) localStorage.setItem("valueFan", "Fan On");
+        document.getElementById('buttonSubmitFan').innerHTML = localStorage.getItem("valueFan");
+        document.getElementById('buttonSubmitFan').value = localStorage.getItem("valueFan");
+		function buttonEventFan() {
+			if (localStorage.getItem("valueFan") === "Fan On") localStorage.setItem("valueFan", "Fan Off");
+            else localStorage.setItem("valueFan", "Fan On");
+		}
         
         /********** TRUNK **********/
         document.getElementById('buttonFormTrunk').addEventListener('submit', buttonEventTrunk);
@@ -341,7 +361,7 @@
 		}
         
         /******************** GET functions ********************/
-        let DataValue = ["", "", "", "", "", ""];
+        let DataValue = ["", "", "", "", "", "", ""];
         if (localStorage.getItem("DataValue0") == null) localStorage.setItem("DataValue0", DataValue[0]);
         if (localStorage.getItem("DataValue1") == null) localStorage.setItem("DataValue1", DataValue[1]);
         if (localStorage.getItem("DataValue2") == null) localStorage.setItem("DataValue2", DataValue[2]);
@@ -351,12 +371,13 @@
 		if (localStorage.getItem("DataValue6") == null) localStorage.setItem("DataValue6", DataValue[6]);
         
         /* Temperature GET here -> */
+		document.getElementById("temperature-level").innerHTML = "Temperature" + "<br>" + localStorage.getItem("DataValue0") + "&degC";
         document.getElementById("humidity-level").innerHTML = "Humidity" + "<br>" + localStorage.getItem("DataValue1") + "%";
         document.getElementById("heat-index").innerHTML = "Real feel" + "<br>" + localStorage.getItem("DataValue2") + "&degC";
         document.getElementById("photo-R-level").innerHTML = "Photo-R level" + "<br>" + localStorage.getItem("DataValue3");
         document.getElementById("locked-unlocked-status").innerHTML = localStorage.getItem("DataValue4");
         document.getElementById("driver-seat-status").innerHTML = "Driver seat" + "<br>" + localStorage.getItem("DataValue5");
-		document.getElementById("distance").innerHTML = "Distance" + "<br>" + localStorage.getItem("DataValue6");
+		document.getElementById("distance").innerHTML = "Distance" + "<br>" + localStorage.getItem("DataValue6")+ "cm";
         
         function updateData() {
             let request = new XMLHttpRequest();

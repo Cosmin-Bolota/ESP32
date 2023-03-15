@@ -13,7 +13,7 @@
 #include "BSW/MCAL/GPIO/gpio.h"
 #include "BSW/HAL/Com/com.h"
 
-static const char *TAG = "HAL PROX SENSOR";
+static const char *TAG = "HAL PROXIMITY SENSOR";
 
 extern COM_GET_struct g_GET_DataStructure;
 
@@ -31,14 +31,16 @@ uint16_t PROX_u16Read(void)
 {
     PROX_vRequest();
 
-    while (GPIO_iGetLevel(HC_SR04_ECHO_PIN) == 0)
-	;
-    int64_t tim1 = esp_timer_get_time();
-    while (GPIO_iGetLevel(HC_SR04_ECHO_PIN))
-	;
-    int64_t tim2 = esp_timer_get_time();
+	while (GPIO_iGetLevel(HC_SR04_ECHO_PIN) == 0)
+		;
 
-    uint16_t distance = (uint16_t)(tim2-tim1)*0.0343/2;
-    g_GET_DataStructure.u8Comfort = distance;
-    return distance;
+	int64_t echo_start = esp_timer_get_time();
+
+	while (GPIO_iGetLevel(HC_SR04_ECHO_PIN))
+		;
+
+    uint16_t distanceCM = (uint16_t) (((esp_timer_get_time() - echo_start) * 0.0343) / 2);
+    g_GET_DataStructure.u16Distance = distanceCM;
+
+	return distanceCM;
 }

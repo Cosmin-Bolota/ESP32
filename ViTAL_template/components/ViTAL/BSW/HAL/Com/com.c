@@ -24,7 +24,7 @@ extern bool g_bPOSTRequestInProcess;
 /* Assign some default values to GET buffer */
 COM_GET_struct g_GET_DataStructure =
 { .u8Temperature = 27, .u8Humidity = 50, .u8Comfort = 24, .bIsLocked = true,
-		.bIsOccupied = false, .u8Distance = 0};
+		.bIsOccupied = false, .u16Distance = 0};
 
 /* Assign some default values to POST buffer */
 COM_POST_struct g_POST_DataStructure =
@@ -52,11 +52,11 @@ void COM_vProcessGetRequest(void)
 		strcat(g_cGETBuffer, dataBuffer);
 		strcat(g_cGETBuffer, "\n");
 
-		sprintf(dataBuffer, "%d", g_GET_DataStructure.u8Distance);
+		sprintf(dataBuffer, "%d", g_GET_DataStructure.u16PhotoRes);
 		strcat(g_cGETBuffer, dataBuffer);
 		strcat(g_cGETBuffer, "\n");
 
-		sprintf(dataBuffer, "%d", g_GET_DataStructure.u16PhotoRes);
+		sprintf(dataBuffer, "%d", g_GET_DataStructure.u16Distance);
 		strcat(g_cGETBuffer, dataBuffer);
 		strcat(g_cGETBuffer, "\n");
 
