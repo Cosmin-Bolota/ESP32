@@ -22,6 +22,7 @@ typedef struct
 	uint16_t u16PhotoRes;
 	bool bIsLocked;
 	bool bIsOccupied;
+	uint8_t u8Distance;
 } COM_GET_struct;
 
 typedef struct

@@ -277,6 +277,11 @@
 					<p id="driver-seat-status"> Driver seat<br>unoccupied  </p>
 				</div>	
 			</div>
+			<div class="grid-item">
+				<div class="status-container">
+					<p id="distance"> Distance</p>
+				</div>	
+			</div>
 		</div>
 	</div>
 	
@@ -343,6 +348,7 @@
         if (localStorage.getItem("DataValue3") == null) localStorage.setItem("DataValue3", DataValue[3]);
         if (localStorage.getItem("DataValue4") == null) localStorage.setItem("DataValue4", DataValue[4]);
         if (localStorage.getItem("DataValue5") == null) localStorage.setItem("DataValue5", DataValue[5]);
+		if (localStorage.getItem("DataValue6") == null) localStorage.setItem("DataValue6", DataValue[6]);
         
         /* Temperature GET here -> */
         document.getElementById("humidity-level").innerHTML = "Humidity" + "<br>" + localStorage.getItem("DataValue1") + "%";
@@ -350,6 +356,7 @@
         document.getElementById("photo-R-level").innerHTML = "Photo-R level" + "<br>" + localStorage.getItem("DataValue3");
         document.getElementById("locked-unlocked-status").innerHTML = localStorage.getItem("DataValue4");
         document.getElementById("driver-seat-status").innerHTML = "Driver seat" + "<br>" + localStorage.getItem("DataValue5");
+		document.getElementById("distance").innerHTML = "Distance" + "<br>" + localStorage.getItem("DataValue6");
         
         function updateData() {
             let request = new XMLHttpRequest();
@@ -362,6 +369,7 @@
                         localStorage.setItem("DataValue3", DataValue[3]);
                         localStorage.setItem("DataValue4", DataValue[4]);
                         localStorage.setItem("DataValue5", DataValue[5]);
+						localStorage.setItem("DataValue6", DataValue[6]);
                     }
                 };
             request.open('GET', '/data.txt', true);
@@ -375,6 +383,7 @@
             document.getElementById("photo-R-level").innerHTML = "Photo-R level" + "<br>" + localStorage.getItem("DataValue3");
             document.getElementById("locked-unlocked-status").innerHTML = localStorage.getItem("DataValue4");
             document.getElementById("driver-seat-status").innerHTML = "Driver seat" + "<br>" + localStorage.getItem("DataValue5");
+			document.getElementById("distance").innerHTML = "Distance" + "<br>" + localStorage.getItem("DataValue6");
         }
         
         setInterval(updateData, 1000);

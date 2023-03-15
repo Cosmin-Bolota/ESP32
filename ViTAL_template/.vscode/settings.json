@@ -2,6 +2,20 @@
     "files.associations": {
         "pwm.h": "c",
         "shift_register.h": "c",
-        "temp_sensor.h": "c"
+        "temp_sensor.h": "c",
+        "*.ipp": "c",
+        "chrono": "c",
+        "condition_variable": "c",
+        "algorithm": "c",
+        "istream": "c",
+        "limits": "c",
+        "mutex": "c",
+        "streambuf": "c",
+        "thread": "c",
+        "global.h": "c",
+        "gpio.h": "c",
+        "proximity_sensor.h": "c",
+        "esp_timer.h": "c",
+        "servo_motor.h": "c"
     }
 }

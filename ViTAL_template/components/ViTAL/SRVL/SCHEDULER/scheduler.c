@@ -17,11 +17,14 @@
 #include "BSW/MCAL/WIFI/wifi.h"
 
 #include "RTE/rte.h"
+#include "BSW/HAL/Com/com.h"
+
 #include "BSW/HAL/Shift_Register/shift_register.h"
 #include "BSW\HAL\DC_Motor\dc_motor.h"
 #include "BSW/HAL/Buzzer/buzzer.h"
 #include "BSW/HAL/Servo_Motor/servo_motor.h"
 #include "BSW/HAL/Temp_Sensor/temp_sensor.h"
+#include "BSW/HAL/Proximity_Sensor/proximity_sensor.h"
 
 /* #include "BSW/HAL/Com/com.h" */
 
@@ -53,15 +56,13 @@ void SYSTEM_vInit(void)
   	GPIO_vSetDirection(SN74HC595N_DS_PIN,DIR_OUTPUT);
 	GPIO_vSetDirection(SN74HC595N_SH_CP_PIN,DIR_OUTPUT);
 	GPIO_vSetDirection(SN74HC595N_ST_CP_PIN,DIR_OUTPUT);
+	GPIO_vSetDirection(HC_SR04_ECHO_PIN, DIR_INPUT);
 	WIFI_vInit(&server);
-
-	DHT11_vRequest();
-	uint8_t x = DHT11_i8Response();
 }
 
 void vTask100ms(void)
 {
-	/* COM_vTaskProcessServer(); */
+	COM_vTaskProcessServer();
 
 	// SHIFTREG_vOutput8Bits(0b00000000);
 	// vTaskDelay(200);
@@ -89,13 +90,26 @@ void vTask100ms(void)
 	// BUZZER_vChangeDutyCycle(0);
 	// vTaskDelay(500);
 
-	//servo
-	SERVO_vChangeAngle(1);
-	vTaskDelay(300);
-	SERVO_vChangeAngle(2);
-	vTaskDelay(300);
+	// //servo
+	// SERVO_vChangeAngle(1);
+	// vTaskDelay(300);
+	// SERVO_vChangeAngle(2);
+	// vTaskDelay(300);
 
 	//ASW_vTaskHeadLightsControl(14);
+
+	//DHT11_vTaskTempAndHumCalculate();
+}
+
+void vTask200ms()
+{
+	uint16_t dist = PROX_u16Read();
+	ESP_LOGI(TAG, "Distance is: %d", dist);
+}
+
+void vTask1000ms(void)
+{
+	DHT11_vTaskTempAndHumCalculate();
 }
 
 void SYSTEM_vTaskScheduler(void)
@@ -107,8 +121,20 @@ void SYSTEM_vTaskScheduler(void)
 		if (u16TickCount % TASK_100MS == 0)
 		{
 			vTask100ms();
+			
 		}
 
+		if (u16TickCount % TASK_200MS == 0)
+		{
+			vTask200ms();
+			
+		}
+
+		if (u16TickCount % TASK_1000MS == 0)
+		{
+			vTask1000ms();
+			
+		}
 		u16TickCount++;
 		if (u16TickCount >= TASK_5000MS)
 		{
