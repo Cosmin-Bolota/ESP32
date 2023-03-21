@@ -56,10 +56,6 @@ void COM_vProcessGetRequest(void)
 		strcat(g_cGETBuffer, dataBuffer);
 		strcat(g_cGETBuffer, "\n");
 
-		sprintf(dataBuffer, "%d", g_GET_DataStructure.u16Distance);
-		strcat(g_cGETBuffer, dataBuffer);
-		strcat(g_cGETBuffer, "\n");
-
 		if (g_GET_DataStructure.bIsLocked)
 		{
 			strcat(g_cGETBuffer, "locked\n");
@@ -78,6 +74,10 @@ void COM_vProcessGetRequest(void)
 			strcat(g_cGETBuffer, "unoccupied\n");
 		}
 
+		sprintf(dataBuffer, "%d", g_GET_DataStructure.u16Distance);
+		strcat(g_cGETBuffer, dataBuffer);
+		strcat(g_cGETBuffer, "\n");
+
 		g_bGETRequestInProcess = false;
 	}
 }
@@ -86,6 +86,7 @@ void COM_vProcessPostRequest(void)
 {
 	if (g_bPOSTRequestInProcess)
 	{
+		ESP_LOGI(TAG, "Sunt in smekerie!\n");
 		if (strcmp(g_cPOSTBuffer, "button=Fan+On") == 0)
 		{
 			g_POST_DataStructure.bButtonFan = true;
@@ -116,6 +117,7 @@ void COM_vProcessPostRequest(void)
 		else if (strcmp(g_cPOSTBuffer, "button=Ambiental+Lights+On") == 0)
 		{
 			g_POST_DataStructure.bButtonAmbientalLights = true;
+			
 		}
 		else if (strcmp(g_cPOSTBuffer, "button=Ambiental+Lights+Off") == 0)
 		{

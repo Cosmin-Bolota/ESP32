@@ -374,7 +374,7 @@
 		document.getElementById("temperature-level").innerHTML = "Temperature" + "<br>" + localStorage.getItem("DataValue0") + "&degC";
         document.getElementById("humidity-level").innerHTML = "Humidity" + "<br>" + localStorage.getItem("DataValue1") + "%";
         document.getElementById("heat-index").innerHTML = "Real feel" + "<br>" + localStorage.getItem("DataValue2") + "&degC";
-        document.getElementById("photo-R-level").innerHTML = "Photo-R level" + "<br>" + localStorage.getItem("DataValue3");
+        document.getElementById("photo-R-level").innerHTML = "Photo-R level" + "<br>" + `${localStorage.getItem("DataValue3")} %`;
         document.getElementById("locked-unlocked-status").innerHTML = localStorage.getItem("DataValue4");
         document.getElementById("driver-seat-status").innerHTML = "Driver seat" + "<br>" + localStorage.getItem("DataValue5");
 		document.getElementById("distance").innerHTML = "Distance" + "<br>" + localStorage.getItem("DataValue6")+ "cm";
@@ -401,10 +401,10 @@
             document.getElementById("temperature-level").innerHTML = "Temperature" + "<br>" + localStorage.getItem("DataValue0") + "&degC";
             document.getElementById("humidity-level").innerHTML = "Humidity" + "<br>" + localStorage.getItem("DataValue1") + "%";
             document.getElementById("heat-index").innerHTML = "Real feel" + "<br>" + localStorage.getItem("DataValue2") + "&degC";
-            document.getElementById("photo-R-level").innerHTML = "Photo-R level" + "<br>" + localStorage.getItem("DataValue3");
+            document.getElementById("photo-R-level").innerHTML = "Photo-R level" + "<br>" + localStorage.getItem("DataValue3") + "%";
             document.getElementById("locked-unlocked-status").innerHTML = localStorage.getItem("DataValue4");
             document.getElementById("driver-seat-status").innerHTML = "Driver seat" + "<br>" + localStorage.getItem("DataValue5");
-			document.getElementById("distance").innerHTML = "Distance" + "<br>" + localStorage.getItem("DataValue6");
+			document.getElementById("distance").innerHTML = "Distance" + "<br>" + localStorage.getItem("DataValue6") + "cm";
         }
         
         setInterval(updateData, 1000);

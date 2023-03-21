@@ -8,3 +8,9 @@
  * created by patent grant or registration of a utility model or design,
  * are reserved.
  *******************************************************************************/
+
+#include "global.h"
+
+uint16_t PHRES_u16Read();
+
+void PHRES_vTaskCalculate();

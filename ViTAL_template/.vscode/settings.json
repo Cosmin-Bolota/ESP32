@@ -16,6 +16,10 @@
         "gpio.h": "c",
         "proximity_sensor.h": "c",
         "esp_timer.h": "c",
-        "servo_motor.h": "c"
+        "servo_motor.h": "c",
+        "atomic": "cpp",
+        "cstdint": "cpp",
+        "adc.h": "c",
+        "com.h": "c"
     }
 }

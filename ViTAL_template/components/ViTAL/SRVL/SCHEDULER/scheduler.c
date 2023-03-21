@@ -25,6 +25,7 @@
 #include "BSW/HAL/Servo_Motor/servo_motor.h"
 #include "BSW/HAL/Temp_Sensor/temp_sensor.h"
 #include "BSW/HAL/Proximity_Sensor/proximity_sensor.h"
+#include "BSW/HAL/Photo_Resistor/photo_resistor.h"
 
 /* #include "BSW/HAL/Com/com.h" */
 
@@ -105,6 +106,7 @@ void vTask200ms()
 {
 	uint16_t dist = PROX_u16Read();
 	ESP_LOGI(TAG, "Distance is: %d", dist);
+	PHRES_vTaskCalculate();
 }
 
 void vTask1000ms(void)
