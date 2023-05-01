@@ -196,6 +196,12 @@ bool RTE_bGet_ButtonBLedStatus(void)
 	return g_POST_DataStructure.bButtonBLed;
 }
 
+uint8_t RTE_u16GetSavedDistance(void)
+{
+	return g_GET_DataStructure.u8Distance;
+}
+
+
 void RTE_vSetLockLightState(uint8_t u8Light)
 {
 	if (u8Light == LOCK_GREEN)

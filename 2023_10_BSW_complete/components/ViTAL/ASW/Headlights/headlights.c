@@ -17,14 +17,18 @@ static const char *TAG = "ASW HL";
 
 void ASW_vTaskHeadLightControl()
 {
-    uint16_t luminance = RTE_u16Get_PhotoRes();
-    if(luminance < 25)
+    if(RTE_bGet_ButtonFindMyCarStatus() == 0) //set priority order(find my car is active)
     {
-        RTE_vSetHeadlightsState(1);
-        ESP_LOGI(TAG, "HeadLight: ON ( < 25%% )");
+        uint16_t luminance = RTE_u16Get_PhotoRes();
+        if(luminance < 25)
+        {
+            RTE_vSetHeadlightsState(1);
+            ESP_LOGI(TAG, "HeadLight: ON ( < 25%% )");
+        }
+        else{
+            RTE_vSetHeadlightsState(0);
+            ESP_LOGI(TAG, "HeadLight: OFF ( > 25%% )");
+        }
     }
-    else{
-        RTE_vSetHeadlightsState(0);
-        ESP_LOGI(TAG, "HeadLight: OFF ( > 25%% )");
-    }
+    
 }

@@ -18,5 +18,6 @@ uint8_t u8CalculateComfort(uint8_t u8Temp, uint8_t u8Hum);
 
 void ASW_vTaskDCMsTest(void);
 void ASW_vTaskDCMdTest(void);
+void ASW_vTaskFanTempTreshold();
 
 #endif

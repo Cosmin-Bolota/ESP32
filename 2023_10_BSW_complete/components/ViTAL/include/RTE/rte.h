@@ -97,6 +97,7 @@ void RTE_vSetRGBLedState();
 void RTE_vSetAmbientalLightsState(bool bState);
 void RTE_vSetShiftRegisterOutput(shift_register_positions_t u8ComponentMask, bool bLevel);
 uint16_t RTE_u16GetDistance(void);
+uint8_t RTE_u16GetSavedDistance(void);
 void RTE_vSetAlarmOn(void);
 void RTE_vSetAlarmOff(void);
 bool RTE_bGetAlarmStatus(void);

@@ -14,5 +14,5 @@
 
 #include "global.h"
 
-
+void ASW_vTaskDoorLockTest();
 #endif

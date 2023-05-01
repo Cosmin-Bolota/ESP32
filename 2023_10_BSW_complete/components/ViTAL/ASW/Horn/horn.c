@@ -22,6 +22,8 @@ void ASW_vTaskBuzzerTest(void)
     uint8_t p = RTE_u8Get_UserBuzzer();
 	if (!RTE_bGet_ButtonHonkStatus())
 	{
+		if(RTE_bGet_ButtonFindMyCarStatus() == 0) //set priority order(find my car is active)
+		{
 			if(p==20) //if p is equal to the filling factor 20
 			{
 				RTE_vSetBuzzerDutyCycle(BUZZER_ON); //buzzer with a duty cycle of 20%
@@ -52,5 +54,13 @@ void ASW_vTaskBuzzerTest(void)
 				RTE_vSetBuzzerDutyCycle(BUZZER_OFF); //buzzer with a duty cycle of 0%
 				flagBuzzerTest=0;
 			}
+			
+			if(flagBuzzerTest)
+			{
+				vTaskDelay(500);
+				RTE_vSetBuzzerDutyCycle(BUZZER_OFF); //buzzer with a duty cycle of 0%
+				flagBuzzerTest = 0;
+			}
+		}
 	}
 }

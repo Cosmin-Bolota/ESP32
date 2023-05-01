@@ -85,7 +85,7 @@ httpd_handle_t WebPageStart(void);
 void WIFI_vInit(void *arg);
 
 /* WIFI credentials */
-#define ESP_SSID_AP "ViTAL_ESP8266_server"
+#define ESP_SSID_AP "Coxmin"
 #define ESP_PASS_AP "12345678"
 
 #endif

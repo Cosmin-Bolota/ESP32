@@ -84,27 +84,35 @@ void vTask200ms(void)
 	ASW_vTaskBuzzerTest();
 	/* Call proximity sensor functionality */
 	PROX_u16Read();
+	
 }
 
 void vTask500ms(void)
 {
+	/* Call Find my car functionality */
+	ASW_vTaskFindMyCar();
 
+	ASW_vTaskServoTest();	//Trunk
+	ASW_vTaskBuzzerTest();	//Honk
+	ASW_vTaskDCMsTest();	//Fan
 }
 
 void vTask800ms(void)
 {
-
+	/* Call CheckDriver seat  */
+	ASW_vTaskCheckDriver();
 } 
 
 void vTask1000ms(void)
 {
 	/* Calculate the photoresistor returned value */
 	PHRES_vTaskCalculate();
+	ASW_vTaskFanTempTreshold();
 } 
 
 void vTask2000ms(void)
 {
-	
+
 }
 
 void vTask5000ms(void)

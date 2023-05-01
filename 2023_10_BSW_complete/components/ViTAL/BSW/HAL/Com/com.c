@@ -155,6 +155,11 @@ void COM_vProcessPostRequest(void)
 			g_POST_DataStructure.bButtonFindMyCar = false;
 		}
 
+		else if (strcmp(g_cPOSTBuffer, "button=Stop+Find+My+Car") == 0)
+		{
+			g_POST_DataStructure.bButtonFindMyCar = false;
+		}
+
 		else if (strcmp(g_cPOSTBuffer, "button=Honk+On") == 0)
 		{
 			g_POST_DataStructure.bButtonHonk = true;

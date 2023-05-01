@@ -17,6 +17,7 @@ static const char *TAG = "ASW CCS";
 static int flag=0;  //the flag will show the DCmotor status and if is taken by ASW_vTaskDCMs or ASW_vTaskDCMd
 static int flagDCMs=0; //the flagDCMs will show if the DC motor is taken by ASW_vTaskDCMs
 static int flagDCMd=0; //the flagDCMd will show if the DC motor is taken by ASW_vTaskDCMd
+static int flagFanTempTreshold = 0;//the flagFanTempTreshold will show if the DC motor is taken by ASW_vTaskFanTempTreshold
 
 uint8_t u8CalculateComfort(uint8_t u8Temp, uint8_t u8Hum)
 {
@@ -41,7 +42,6 @@ uint8_t u8CalculateComfort(uint8_t u8Temp, uint8_t u8Hum)
 
 	return (uint8_t) d64HeatIndex;
 }
-
 
 void ASW_vTaskDCMsTest(void) //the functionality of the DCmotor when rotating in one direction
 {
@@ -113,5 +113,41 @@ void ASW_vTaskDCMdTest(void) //the functionality of the DCmotor when rotating in
 		RTE_vSetDCMotorSpeed(DC_MOTOR_OFF); //DC with a duty cycle of 0%
 		flag=0; //DCmotor is free
 		flagDCMd=0; //DCmotor is released by ASW_vTaskDCMd
+	}
+}
+
+void ASW_vTaskFanTempTreshold()
+{
+	uint8_t temp = RTE_u8Get_Temperature();
+	uint8_t tempUser = RTE_u8Get_UserTemperature();
+
+	if(temp > tempUser && flag==0 && flagDCMs==0 && flagDCMd==0)
+	{
+		flagFanTempTreshold = 1;
+		if(temp - tempUser <= 5)
+		{
+			RTE_vSetDCMotorSpeed(DC_MOTOR_20);
+		}
+		else if(temp - tempUser <= 10)
+		{
+			RTE_vSetDCMotorSpeed(DC_MOTOR_40);
+		}
+		else if(temp - tempUser <= 15)
+		{
+			RTE_vSetDCMotorSpeed(DC_MOTOR_60);
+		}
+		else if(temp - tempUser <= 20)
+		{
+			RTE_vSetDCMotorSpeed(DC_MOTOR_80);
+		}
+		else
+		{
+			RTE_vSetDCMotorSpeed(DC_MOTOR_HIGH);
+		}
+		ESP_LOGI(TAG, "FanTempTreshold is active!");
+	}
+	else 
+	{
+		flagFanTempTreshold = 0;
 	}
 }
