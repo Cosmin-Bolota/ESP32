@@ -25,6 +25,7 @@ extern COM_POST_struct g_POST_DataStructure;
 static bool sg_bIsAlarmOn = false;
 static bool BuzzerStatus = false;
 static bool BuzzerStatusSecurity = false;
+static bool HeadLightsStatus = false;
 
 bool RTE_bGet_ButtonFanStatus(void)
 {
@@ -401,6 +402,16 @@ void RTE_vSetBuzzerOffSecurity(void)
 	BuzzerStatusSecurity = false;
 }
 
+// void RTE_vSetHeadLightsOnStatus()
+// {
+// 	HeadLightsStatus = true;
+// }
+
+// void RTE_vSetHeadLightsOffStatus()
+// {
+// 	HeadLightsStatus = false;
+// }
+
 bool RTE_bGetBuzzerStatus(void)
 {
 	return BuzzerStatus;
@@ -410,3 +421,8 @@ bool RTE_bGetBuzzerStatusSecurity(void)
 {
 	return BuzzerStatusSecurity;
 }
+
+// bool RTE_bGetHeadLightsStatus(void)
+// {
+// 	return HeadLightsStatus;
+// }

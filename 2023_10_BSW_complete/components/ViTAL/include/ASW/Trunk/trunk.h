@@ -15,5 +15,6 @@
 #include "global.h"
 
 void ASW_vTaskServoTest(void);
+void ASW_vTaskTrunkCheck(void);
 
 #endif

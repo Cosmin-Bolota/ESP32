@@ -99,8 +99,7 @@ void vTask500ms(void)
 
 void vTask800ms(void)
 {
-	/* Call CheckDriver seat  */
-	ASW_vTaskCheckDriver();
+	ASW_vTaskAmbientalLight();
 } 
 
 void vTask1000ms(void)
@@ -108,11 +107,14 @@ void vTask1000ms(void)
 	/* Calculate the photoresistor returned value */
 	PHRES_vTaskCalculate();
 	ASW_vTaskFanTempTreshold();
+	ASW_vTaskDoorLockCheck();
 } 
 
 void vTask2000ms(void)
 {
-
+	ASW_vTaskTrunkCheck();
+	/* Call CheckDriver seat  */
+	ASW_vTaskCheckDriver();
 }
 
 void vTask5000ms(void)

@@ -16,5 +16,6 @@
 
 void ASW_vTaskShiftRegControlTest(void);
 void ASW_vTaskRGBLedControlTest(void);
+void ASW_vTaskAmbientalLight(void);
 
 #endif

@@ -45,3 +45,21 @@ void ASW_vTaskServoTest(void)
 	    }
     }
 }
+
+void ASW_vTaskTrunkCheck(void)
+{
+    if(!RTE_bGet_IsLocked() && !flagServoTest)
+    {
+        if (!RTE_bGet_ButtonTrunkStatus())
+        {
+            RTE_vSetServoPosition(SERVO_MOTOR_0_DEG); //set the duty cycle corresponding to 0 deg  
+        }
+        else{
+            RTE_vSetServoPosition(SERVO_MOTOR_90_DEG); //set the duty cycle corresponding to 90 deg
+        }
+    }
+    else if(RTE_bGet_IsLocked() && !flagServoTest)
+    {
+        RTE_vSetServoPosition(SERVO_MOTOR_0_DEG); //set the duty cycle corresponding to 0 deg
+    }
+}

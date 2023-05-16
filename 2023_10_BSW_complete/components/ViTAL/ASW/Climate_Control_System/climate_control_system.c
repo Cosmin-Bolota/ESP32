@@ -121,33 +121,41 @@ void ASW_vTaskFanTempTreshold()
 	uint8_t temp = RTE_u8Get_Temperature();
 	uint8_t tempUser = RTE_u8Get_UserTemperature();
 
-	if(temp > tempUser && flag==0 && flagDCMs==0 && flagDCMd==0)
+	if(RTE_bGet_ButtonFanStatus())
 	{
-		flagFanTempTreshold = 1;
-		if(temp - tempUser <= 5)
+		if(temp > tempUser && flag==0 && flagDCMs==0 && flagDCMd==0)
 		{
-			RTE_vSetDCMotorSpeed(DC_MOTOR_20);
+			flagFanTempTreshold = 1;
+			if(temp - tempUser <= 5)
+			{
+				RTE_vSetDCMotorSpeed(DC_MOTOR_20);
+			}
+			else if(temp - tempUser <= 10)
+			{
+				RTE_vSetDCMotorSpeed(DC_MOTOR_40);
+			}
+			else if(temp - tempUser <= 15)
+			{
+				RTE_vSetDCMotorSpeed(DC_MOTOR_60);
+			}
+			else if(temp - tempUser <= 20)
+			{
+				RTE_vSetDCMotorSpeed(DC_MOTOR_80);
+			}
+			else
+			{
+				RTE_vSetDCMotorSpeed(DC_MOTOR_HIGH);
+			}
+			ESP_LOGI(TAG, "FanTempTreshold is active!");
 		}
-		else if(temp - tempUser <= 10)
+		else 
 		{
-			RTE_vSetDCMotorSpeed(DC_MOTOR_40);
+			flagFanTempTreshold = 0;
 		}
-		else if(temp - tempUser <= 15)
-		{
-			RTE_vSetDCMotorSpeed(DC_MOTOR_60);
-		}
-		else if(temp - tempUser <= 20)
-		{
-			RTE_vSetDCMotorSpeed(DC_MOTOR_80);
-		}
-		else
-		{
-			RTE_vSetDCMotorSpeed(DC_MOTOR_HIGH);
-		}
-		ESP_LOGI(TAG, "FanTempTreshold is active!");
 	}
-	else 
+	else
 	{
-		flagFanTempTreshold = 0;
+		RTE_vSetDCMotorSpeed(DC_MOTOR_OFF);
 	}
+	
 }

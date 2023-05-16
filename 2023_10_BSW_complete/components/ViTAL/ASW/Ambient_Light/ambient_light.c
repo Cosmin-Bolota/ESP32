@@ -51,3 +51,18 @@ void ASW_vTaskRGBLedControlTest(void)
 	}
 	
 }
+
+void ASW_vTaskAmbientalLight(void)
+{
+	if(!RTE_bGet_IsLocked())
+	{
+		if(RTE_bGet_ButtonAmbientalLightsStatus())
+		{
+			
+			RTE_vSetAmbientalLightsState(ON);
+		}
+		else{
+			RTE_vSetAmbientalLightsState(OFF);
+		}
+	}
+}

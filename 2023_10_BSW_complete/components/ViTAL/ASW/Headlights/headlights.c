@@ -17,7 +17,7 @@ static const char *TAG = "ASW HL";
 
 void ASW_vTaskHeadLightControl()
 {
-    if(RTE_bGet_ButtonFindMyCarStatus() == 0) //set priority order(find my car is active)
+    if(RTE_bGet_ButtonFindMyCarStatus() == 0 && RTE_bGet_IsLocked()) //set priority order(find my car is active)
     {
         uint16_t luminance = RTE_u16Get_PhotoRes();
         if(luminance < 25)
@@ -26,6 +26,7 @@ void ASW_vTaskHeadLightControl()
             ESP_LOGI(TAG, "HeadLight: ON ( < 25%% )");
         }
         else{
+            RTE_vSetHeadLightsOffStatus();
             RTE_vSetHeadlightsState(0);
             ESP_LOGI(TAG, "HeadLight: OFF ( > 25%% )");
         }
